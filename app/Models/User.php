@@ -49,7 +49,7 @@ class User extends Authenticatable
 
     // en el modelo de usuario se puede definir la relacion con otros modelos
 
-    // eloquent 
+    // eloquent 1 a muchos
     public function posts() {
         return $this->hasMany(Post::class);
     }
