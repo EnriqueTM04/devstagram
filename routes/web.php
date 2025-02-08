@@ -9,6 +9,7 @@ use App\Http\Controllers\ImagenController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ComentarioController;
+use App\Http\Controllers\PerfilController;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', [RegisterController::class, 'index']);
@@ -47,3 +48,7 @@ Route::get('/posts/{post}/likes/count', function (Post $post) {
         'contador_likes' => $post->likes->count()
     ]);
 })->middleware('auth');
+
+// Perfil
+Route::get('{user:username}/editar-perfil', [PerfilController::class, 'index'])->name('perfil.index')->middleware('auth');
+Route::post('{user:username}/editar-perfil', [PerfilController::class, 'store'])->name('perfil.store')->middleware('auth');
