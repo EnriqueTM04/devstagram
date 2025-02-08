@@ -1,12 +1,15 @@
 <?php
 
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ImagenController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ComentarioController;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', [RegisterController::class, 'index']);
 
@@ -32,4 +35,15 @@ Route::post('/{user:username}/posts/{post}', [ComentarioController::class, 'stor
 Route::delete('/posts/{post}', [PostController::class, 'destroy'])->middleware('auth')->name('posts.destroy');
 
 // Imagenes API
-Route::post('imagenes', [ImagenController::class, 'store'])->name('imagenes.store');
+Route::post('imagenes', [ImagenController::class, 'store'])->name('imagenes.store')->middleware('auth');
+
+// Like a las fotos
+Route::post('/posts/{post}/likes', [LikeController::class, 'store'])->name('posts.likes.store')->middleware('auth');
+Route::delete('/posts/{post}/likes', [LikeController::class, 'destroy'])->name('posts.likes.destroy')->middleware('auth');
+// API para conatdor de likes
+Route::get('/posts/{post}/likes/count', function (Post $post) {
+    return response()->json([
+        'usuario_like' => $post->checkLike(Auth::user()),
+        'contador_likes' => $post->likes->count()
+    ]);
+})->middleware('auth');
