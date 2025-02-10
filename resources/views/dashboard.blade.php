@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('titulo')
-    DevUser: {{ $user->username}}
+    DevUser: <span id="user">{{ $user->username}}</span>
 @endsection
 
 @section('contenido')
@@ -30,12 +30,12 @@
                 @endauth
 
                 <p class="text-gray-800 text-sm mb-3 font-bold">
-                    0
-                    <span class="font-normal">Seguidores</span>
+                    <span class="followers">{{ $user->followers->count() }}</span>
+                    <span class="font-normal"> @choice('Seguidor|Seguidores', $user->followers->count() )</span>
                 </p>
 
                 <p class="text-gray-800 text-sm mb-3 font-bold">
-                    0
+                    <span class="following">{{ $user->following->count() }}</span>
                     <span class="font-normal">Siguiendo</span>
                 </p>
 
@@ -43,6 +43,22 @@
                     {{ $user->posts->count() }}
                     <span class="font-normal">Posts</span>
                 </p>
+
+                @auth
+                    @if ($user->id !== auth()->user()->id)
+                        <form class="follow hidden" action="{{ route('users.follow', $user) }}" method="POST">
+                            @csrf
+                            <input type="submit" value="Seguir" class="bg-blue-600 text-white font-bold py-2 px-4 rounded-full text-xs cursor-pointer uppercase">
+                        </form>
+
+                        <form class="unfollow hidden" action="{{ route('users.unfollow', $user) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <input type="submit" value="Siguiendo" class="text-blue-600 bg-white border-blue-600 font-bold py-2 px-4 rounded-full text-xs cursor-pointer uppercase">
+                        </form>                        
+                    @endif
+                @endauth
+                
             </div>
         </div>
     </div>
