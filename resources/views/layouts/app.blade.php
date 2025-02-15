@@ -11,13 +11,15 @@
         @vite('resources/js/app.js')
 
         <title>Devstagram - @yield('titulo')</title>
+
+        @livewireStyles()
     </head>
     <body class="bg-gray-100">
         <header class="p-5 border-b bg-white shadow">
             <div class="container mx-auto flex justify-between items-center">
-                <h1 class="text-3xl font-black">
+                <a href="{{ route('home') }}" class="text-3xl font-black">
                     Devstagram
-                </h1>
+                </a>
 
 
                 @auth
@@ -65,5 +67,7 @@
             Devstagram - Todos los derechos reservados {{ now()->year }}
             {{-- @php echo date('Y') @endphp --}}
         </footer>
+
+        @livewireScripts()
     </body>
 </html>
