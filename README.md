@@ -19,10 +19,6 @@ Devstagram es una aplicación inspirada en Instagram, pero diseñada específica
 - **Likes**: Da "me gusta" a las publicaciones que encuentres interesantes.
 - **Perfiles de Usuario**: Personaliza tu perfil con tu información y proyectos destacados.
 
-## Licencia
-
-Este proyecto está bajo la licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
-
 ## Contacto
 
 Para cualquier consulta o sugerencia, puedes contactarnos en [contacto@devstagram.com](mailto:contacto@devstagram.com).
